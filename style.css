@@ -4,5 +4,9 @@
 }
 
 .parallax-container {
-  height: 250px;
+  height: 300px;
+}
+
+footer {
+  margin: 0;
 }
