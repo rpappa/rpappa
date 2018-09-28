@@ -10,3 +10,7 @@
 footer.page-footer {
   margin: 0;
 }
+
+.dyn-text {
+  font-size:1vmax;
+}
