@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="game">
+        <div class="intro-card" v-if="introStage == 0">
+            <h1 class="preme">Welcome</h1>
+            <p>This is a small game with two aims:</p>
+            <ol>
+                <li>Answer the question: is Supreme resell dead?</li>
+                <li>Give you a tool to analyze a Supreme season</li>
+            </ol>
+
+            <span v-on:click="nextStage()" class="next-button">Ok</span>
+        </div>
+
+        <div class="intro-card" v-if="introStage == 1">
+            <h3>Gameplay</h3>
+            <p>You will step through each week of Supreme's FW19 season. Each week you will be 
+                given the drop list for that week. Your job is to pick the item that you think
+                will resell the best---or you can simply try out different picks to see how the season
+                could have played out. To track "how well" you're doing, the revenue from each week
+                will be reinvested into the next week's purchases, allowing you to wildly grow your
+                income.
+            </p>
+
+            <span v-on:click="nextStage()" class="next-button">Ok</span>
+        </div>
+
+        <div class="intro-card" v-if="introStage == 2">
+            <h3>Some questions</h3>
+            <p>First, how much money should you start with prior to week 0? This will limit what you
+                can buy
+            </p>
+
+            <span>$</span><input v-model.number="startMoney" type="number" min="0" step="1"> <br /><br />
+
+            <span v-on:click="nextStage()" class="next-button">Confirm</span>
+        </div>
+
+        <div class="intro-card" v-if="introStage == 3">
+            <h3>Their Cut</h3>
+            <p> What [total] fee does StockX charge you? This is usually between 12.5% and 11%. </p>
+
+            <input v-model.number="stockXFee" type="number" min="0" step="0.001"><span>* 100 = {{ stockXFee * 100}} % </span> <br />
+
+            <p> What percent sales tax do you pay on Supreme purchases?</p>
+            <input v-model.number="tax" type="number" min="0" step="0.005"><span>* 100 = {{ tax * 100}} % </span> <br />
+
+            <p> What do you pay for shipping from Supreme? This is usally $10 for online and 
+                $0 for instore</p>
+            <span>$</span><input v-model.number="shipping" type="number" min="0" step="0.5"> <br /><br />
+
+            <span v-on:click="nextStage()" class="next-button">Confirm</span>
+        </div>
+
+        <div class="intro-card" v-if="introStage == 4">
+            <h3>Drop Day</h3>
+            <p> What's the maximum number of one item you think you're capable of copping on drop day,
+                disregarding the amount of funds you have on hand?
+            </p>
+
+            <input v-model.number="maxQty" type="number" min="0" step="1"><span> items</span> <br />
+
+            <p> When calculating the "best case" scenario, should we allow the simulation to skip
+                weeks that are not profitable?
+            </p>
+            <label class="switch">
+                <input type="checkbox" v-model="allowSkips">
+                <span class="slider round"></span>
+            </label> <br /><br />
+
+            <span v-on:click="nextStage()" class="next-button">Confirm</span>
+        </div>
+
+        <div class="intro-card" v-if="introStage == 5">
+            <h3>Selling</h3>
+            <p style="font-style: italic">These are for worst/best case scenarios. Feel free to leave them
+            at their defaults and get a decently accurate analysis.</p> <br>
+            
+            <p> What percentile, amongst all sizes and across all time for any item, do you think you can sell at?
+            </p>
+
+            <input v-model.number="percentile" type="number" min="0" step="0.01" max="1"><span> ({{ ord(percentile)}} percentile)</span> <br />
+
+            <p> How many days after the drop until you sell the item?
+            </p>
+            <input v-model.number="daysBeforeSale" type="number" min="0" step="0.5"><span> days</span> <br /><br />
+
+            <span v-on:click="nextStage()" class="next-button">Confirm</span>
+        </div>
+
+        <div id="game-info" v-if="introStage >= 6">
+            <span id="money-amt">Money: ${{gameMoney}}</span>
+            <div id="cheater-mode">
+                <span>Cheater mode?</span><br>
+                <label class="switch">
+                    <input type="checkbox" v-model="cheaterMode">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="spacer" style="clear: both;"></div>
+        </div>
+
+        <week v-for="week in weeks" v-bind:week="week" v-bind:tax-n-ship="taxNShip"
+        v-bind:money="gameMoney" v-on:choice="nextWeek($event)" 
+        v-if="introStage >= 6 && weekStage == getWeekNum(week)"></week>
+        
+        <div class="play-list" id="ideal-plays">
+            <play v-for="play in plays" v-bind:play="play"
+            v-show="cheaterMode || (weekStage > parseInt(play.week))"></play>
+        </div>
+
+        <div class="play-list" id="player-plays">
+            <play v-for="play in game.plays" v-bind:play="play" ></play>
+        </div>
+    </div>
+    <!-- <div id="chart-container">
+        <canvas id="plays" width="400" height="300"></canvas>
+    </div> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="./constant.js"></script>
+    <script src="./game.js"></script>
+</body>
+
+</html>

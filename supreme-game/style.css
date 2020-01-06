@@ -1,0 +1,199 @@
+.preme {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-size: 2em;
+    color: #fff;
+    background: red;
+    padding: 0.2em 0.4em;
+    text-decoration: none;
+    width: min-content;
+    font-style: oblique;
+    /* margin : auto; */
+}
+
+body {
+    font-family: Tahoma, Verdana, Segoe, sans-serif;
+}
+
+.intro-card {
+    background: #eee;
+    width: 500px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 5px 5px 10px -5px #888888;
+    min-height: 10em;
+}
+
+.next-button {
+    color: #00c;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px;
+    width: min-content;
+    cursor: pointer;
+}
+
+.next-button.disabled {
+    color: #99f;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 10px;
+    width: min-content;
+    cursor: default;
+}
+
+#game-info {
+    background: #eee;
+    width: 750px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right:auto;
+    box-shadow: 5px 5px 10px -5px #888888;
+    margin-bottom: 10px;
+}
+
+#cheater-mode {
+    float:right;
+    text-align:right;
+}
+
+.week-card {
+    background: #eee;
+    width: 750px;
+    padding: 15px;
+    margin-left: auto;
+    margin-right:auto;
+    box-shadow: 5px 5px 10px -5px #888888;
+}
+
+.item {
+    background: white;
+    width: 150px;
+    padding:10px;
+    height: 200px;
+    margin: 3px;
+    float: left;
+    text-align: center;
+    font-size: 0.75em;
+}
+
+.item > img {
+    max-height: 100px;
+    max-width: 150px;
+}
+
+.item.chosen {
+    box-shadow: 0px 0px 1px 1px lime;
+}
+
+.item.cantChoose {
+    opacity: 0.5;
+}
+
+.cw-picker {
+    position: absolute;
+    background-color: white;
+    text-align: left;
+    border: 1px solid black;
+    padding: 10px;
+    padding-right: 20px;
+    box-shadow: 3px 3px 7px 3px #333a;
+    z-index: 5;
+}
+
+.play-list {
+    position: absolute;
+    top: 0;
+    width: 500;
+    font-size: 0.8em;
+}
+
+.play-image > img {
+    width: 100%;
+}
+
+#ideal-plays {
+    right: 0;
+}
+
+#player-plays {
+    left: 0;
+}
+
+.play {
+    background-color: #FF6D62;
+    padding: 3px;
+    margin: 2px;
+}
+
+.play.skip {
+    text-decoration: line-through;
+}
+
+.profitable {
+    background-color: palegreen !important;
+}
+
+/* From https://www.w3schools.com/howto/howto_css_switch.asp */
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%
+}   
